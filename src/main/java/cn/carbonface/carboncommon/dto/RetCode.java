@@ -35,7 +35,10 @@ public enum RetCode {
     USER_ACCOUNT_USE_BY_OTHERS(2011, "账号下线"),
 
     /* 业务错误 */
-    NO_PERMISSION(3001, "没有权限");
+    NO_PERMISSION(3001, "没有权限"),
+    FEIGN_ONLY(3002, "内部接口，无法访问！");
+
+
     private Integer code;
     private String message;
 
