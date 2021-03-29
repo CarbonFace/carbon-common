@@ -1,13 +1,11 @@
 package cn.carbonface.carboncommon.tools;
 
-
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Classname RedisUtil
- * @Description TODO
+ * @Description only string type redis
  * @Author CarbonFace <553127022@qq.com>
  * @Date 2021/3/16 15:35
  * @Version V1.0
@@ -24,10 +22,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    public static RedisTemplate redisTemplate;
+    public static StringRedisTemplate redisTemplate;
     public static RedisProperties redisProperties;
 
-    public RedisUtil(RedisTemplate redisTemplate,RedisProperties redisProperties) {
+    public RedisUtil(StringRedisTemplate redisTemplate ) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -79,7 +77,7 @@ public class RedisUtil {
             if (key.length == 1) {
                 redisTemplate.delete(key[0]);
             } else {
-                redisTemplate.delete(CollectionUtils.arrayToList(key));
+                redisTemplate.delete((Collection<String>) CollectionUtils.arrayToList(key));
             }
         }
     }
@@ -103,7 +101,7 @@ public class RedisUtil {
      * @param value 值
      */
     public static void set(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+        redisTemplate.opsForValue().set(key, (String) value);
     }
 
     /**
@@ -115,7 +113,7 @@ public class RedisUtil {
      */
     public static void set(String key, Object value, long time) {
         if (time > 0) {
-            redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, (String) value, time, TimeUnit.SECONDS);
         } else {
             set(key, value);
         }
@@ -271,8 +269,9 @@ public class RedisUtil {
      * 根据key获取Set中的所有值
      *
      * @param key 键
+     * @return
      */
-    public static Set<Object> sGet(String key) {
+    public static Set<String> sGet(String key) {
         return redisTemplate.opsForSet().members(key);
 
     }
@@ -295,7 +294,7 @@ public class RedisUtil {
      * @param values 值 可以是多个
      * @return 成功个数
      */
-    public static long sSet(String key, Object... values) {
+    public static long sSet(String key, String... values) {
         return redisTemplate.opsForSet().add(key, values);
     }
 
@@ -307,7 +306,7 @@ public class RedisUtil {
      * @param values 值 可以是多个
      * @return 成功个数
      */
-    public static long sSetAndTime(String key, long time, Object... values) {
+    public static long sSetAndTime(String key, long time, String... values) {
         Long count = redisTemplate.opsForSet().add(key, values);
         if (time > 0)
             expire(key, time);
@@ -345,7 +344,7 @@ public class RedisUtil {
      * @param end   结束 0 到 -1代表所有值
      * @return
      */
-    public static List<Object> lGet(String key, long start, long end) {
+    public static List<String> lGet(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
 
@@ -378,7 +377,7 @@ public class RedisUtil {
      * @return
      */
     public static void lSet(String key, Object value) {
-        redisTemplate.opsForList().rightPush(key, value);
+        redisTemplate.opsForList().rightPush(key, (String) value);
     }
 
     /**
@@ -390,7 +389,7 @@ public class RedisUtil {
      * @return
      */
     public static void lSet(String key, Object value, long time) {
-        redisTemplate.opsForList().rightPush(key, value);
+        redisTemplate.opsForList().rightPush(key, (String) value);
         if (time > 0)
             expire(key, time);
     }
@@ -403,7 +402,7 @@ public class RedisUtil {
      * @return
      */
     public static void lSet(String key, List<Object> value) {
-        redisTemplate.opsForList().rightPushAll(key, value);
+        redisTemplate.opsForList().rightPushAll(key, String.valueOf(value));
     }
 
     /**
@@ -415,7 +414,7 @@ public class RedisUtil {
      * @return
      */
     public static void lSet(String key, List<Object> value, long time) {
-        redisTemplate.opsForList().rightPushAll(key, value);
+        redisTemplate.opsForList().rightPushAll(key, String.valueOf(value));
         if (time > 0)
             expire(key, time);
     }
@@ -428,7 +427,7 @@ public class RedisUtil {
      * @param value 值
      */
     public static void lUpdateIndex(String key, long index, Object value) {
-        redisTemplate.opsForList().set(key, index, value);
+        redisTemplate.opsForList().set(key, index, (String) value);
     }
 
     /**
@@ -452,7 +451,7 @@ public class RedisUtil {
      * ZADD key score1 member1 [score2 member2]
      */
     public static void zAdd(String key, Object member, double score, long time) {
-        redisTemplate.opsForZSet().add(key, member, score);
+        redisTemplate.opsForZSet().add(key, (String) member, score);
         if (time > 0)
             expire(key, time);
     }
@@ -460,8 +459,9 @@ public class RedisUtil {
     /**
      * ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]
      * 通过分数返回有序集合指定区间内的成员
+     * @return
      */
-    public static Set<Object> zRangeByScore(String key, double minScore, double maxScore) {
+    public static Set<String> zRangeByScore(String key, double minScore, double maxScore) {
         return redisTemplate.opsForZSet().rangeByScore(key, minScore, maxScore);
     }
 
@@ -482,9 +482,10 @@ public class RedisUtil {
 
     /**
      * Zscan 迭代有序集合中的元素（包括元素成员和元素分值）
+     * @return
      */
-    public static Cursor<ZSetOperations.TypedTuple<Object>> zScan(String key) {
-        Cursor<ZSetOperations.TypedTuple<Object>> cursor = redisTemplate.opsForZSet().scan(key, ScanOptions.NONE);
+    public static Cursor<ZSetOperations.TypedTuple<String>> zScan(String key) {
+        Cursor<ZSetOperations.TypedTuple<String>> cursor = redisTemplate.opsForZSet().scan(key, ScanOptions.NONE);
         return cursor;
     }
 
