@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
  * @Version V1.0
  */
 
-@Component
 public class HttpUtil {
 
 

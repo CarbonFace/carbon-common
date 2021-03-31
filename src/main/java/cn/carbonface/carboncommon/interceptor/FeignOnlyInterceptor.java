@@ -32,12 +32,6 @@ public class FeignOnlyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws CarbonException {
-        System.out.println("===============header info============");
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()){
-            String name = headerNames.nextElement();
-            System.out.println("header name:" + name + "\t:" + request.getHeader(name) );
-        }
         boolean feignOnly = feignOnly(request,handler);
         if (feignOnly){
 //            ApiResult.response(response,new ApiResult(RetCode.FEIGN_ONLY)/*.token()*/);
