@@ -47,6 +47,10 @@ public class ApiResult implements Serializable {
         this.msg = retCode.getMessage();
     }
 
+    public static ApiResult error(RetCode retCode) {
+        return new ApiResult(retCode);
+    }
+
     public ApiResult token(String token){
         this.token = token;
         return this;

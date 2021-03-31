@@ -1,12 +1,11 @@
 package cn.carbonface.carboncommon.exception;
 
 
-public class ApiException extends Exception {
+public class ApiException extends CarbonException {
     private static final long serialVersionUID = -5485177960058845859L;
 
     public ApiException() {
     }
-
     public ApiException(String message) {
         super(message);
     }
