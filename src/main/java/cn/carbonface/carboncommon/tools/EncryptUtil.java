@@ -4,9 +4,14 @@ import org.springframework.util.DigestUtils;
 
 import java.util.Random;
 
+/**
+ * @Classname EncryptUtil
+ * @Description EncryptUtil for encrypt strings
+ * @Author CarbonFace <553127022@qq.com>
+ * @Date 2021/3/19 12:02
+ * @Version V1.0
+ */
 public class EncryptUtil {
-
-
     /**
      * @description: md5Encrypt
      * encoding strings without salt input

@@ -4,13 +4,11 @@ import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 import java.util.Arrays;
 
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy =EnumValue.Validator.class)
 public @interface EnumValue {
@@ -25,7 +23,7 @@ public @interface EnumValue {
 
     /**
      *
-     * 实现
+     * implements
      */
     class Validator implements ConstraintValidator<EnumValue, Object> {
 

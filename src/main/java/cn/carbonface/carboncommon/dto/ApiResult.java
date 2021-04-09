@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
+/**
+ * @Classname ApiResult
+ * @Description common ApiResult class for http request handle and lay response
+ * @Author CarbonFace <553127022@qq.com>
+ * @Date 2021/3/12 13:16
+ * @Version V1.0
+ */
 @Slf4j
 public class ApiResult implements Serializable {
 
