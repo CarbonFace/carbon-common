@@ -1,10 +1,14 @@
 package cn.carbonface.carboncommon.exception;
 
 
+import cn.carbonface.carboncommon.dto.RetCode;
+
 public class ApiException extends CarbonException {
     private static final long serialVersionUID = -5485177960058845859L;
 
-    public ApiException() {
+
+    public ApiException(RetCode retCode) {
+        super(retCode);
     }
     public ApiException(String message) {
         super(message);
