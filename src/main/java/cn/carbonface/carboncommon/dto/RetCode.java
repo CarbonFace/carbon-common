@@ -1,11 +1,11 @@
 package cn.carbonface.carboncommon.dto;
 
 /**
- * @Classname RetCode
- * @Description retCode enum
- * @Author CarbonFace  <553127022@qq.com>
- * @Date 2021/3/17 17:06
- * @Version V1.0
+ * Classname: RetCode
+ * Description: retCode enum
+ * @author CarbonFace  <553127022@qq.com>
+ * Date: 2021/3/17 17:06
+ * @version V1.0
  */
 public enum RetCode {
     /* 成功 */
@@ -36,7 +36,9 @@ public enum RetCode {
 
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限"),
-    FEIGN_ONLY(3002, "内部接口，无法访问！");
+    FEIGN_ONLY(3002, "内部接口，无法访问！"),
+
+    INTERNAL_ERROR(5000,"服务器内部错误");
 
 
     private Integer code;
@@ -67,7 +69,7 @@ public enum RetCode {
      * 根据code获取message
      *
      * @param code
-     * @return
+     * @return string
      */
     public static String getMessageByCode(Integer code) {
         for (RetCode ele : values()) {

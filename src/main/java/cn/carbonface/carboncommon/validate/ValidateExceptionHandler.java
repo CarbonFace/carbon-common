@@ -19,7 +19,7 @@ import java.util.List;
 @RestControllerAdvice
 public class ValidateExceptionHandler {
     @ExceptionHandler(BindException.class)
-    public ApiResult handleBindException(BindException e){
+    public ApiResult<?> handleBindException(BindException e){
         BindingResult bindingResult = e.getBindingResult();
         StringBuilder msg = new StringBuilder();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
