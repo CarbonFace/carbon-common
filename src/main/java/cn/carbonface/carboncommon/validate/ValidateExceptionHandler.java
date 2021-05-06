@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 /**
- * @Classname ValidateExceptionHandler
- * @Description ValidateExceptionHandler for BindException handle
- * @Author CarbonFace <553127022@qq.com>
- * @Date 2021/3/19 12:02
- * @Version V1.0
+ * Classname: ValidateExceptionHandler
+ * Description: ValidateExceptionHandler for BindException handle
+ * @author CarbonFace <553127022@qq.com>
+ * Date: 2021/3/19 12:02
+ * @version V1.0
  */
 @RestControllerAdvice
 public class ValidateExceptionHandler {

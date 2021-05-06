@@ -1,5 +1,6 @@
 package cn.carbonface.carboncommon.tools;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -10,24 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @Classname HttpUtil
- * @Description httpUtil for obtain http attributes in the project
- * @Author CarbonFace <553127022@qq.com>
- * @Date 2021/3/19 10:02
- * @Version V1.0
+ * Classname: HttpUtil
+ * Description: httpUtil for obtain http attributes in the project
+ * @author CarbonFace <553127022@qq.com>
+ * Date: 2021/3/19 10:02
+ * @version V1.0
  */
+@Component
+@Slf4j
 public class HttpUtil {
 
+    public static final String DEFAULT_CONTENT_TYPE = "";
+    public static final String CONTENT_TYPE         = "Content-Type";
+    public static final String CONTENT_DISPOSITION  = "Content-Disposition";
 
     /**
-     * @description: getServletRequestAttributes
+     * Description:: getServletRequestAttributes
      * warn : this method can not use in the Asynchronous thread, or it will cause null point exception
      * if must , may it be like belong codes before opening up a new thread to set "Thread sharing"
      * ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
      * RequestContextHolder.setRequestAttributes(sra, true);
      * @return org.springframework.web.context.request.ServletRequestAttributes
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:47
+     * Date:: 2021/3/19 10:47
      * @version: 1.0
      */
     public static ServletRequestAttributes getServletRequestAttributes(){
@@ -39,11 +45,11 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getRequest 
+     * Description:: getRequest 
      * warn : when the requestAttributes is null request is null
      * @return javax.servlet.http.HttpServletRequest
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:31
+     * Date:: 2021/3/19 10:31
      * @version: 1.0 
      */
     public static HttpServletRequest getRequest() {
@@ -52,11 +58,11 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getResponse
+     * Description:: getResponse
      * warn : when the requestAttributes is null request is null
      * @return javax.servlet.http.HttpServletResponse
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:37
+     * Date:: 2021/3/19 10:37
      * @version: 1.0
      */
     public static HttpServletResponse getResponse(){
@@ -65,12 +71,12 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getSession
+     * Description:: getSession
      * get session with httpServletRequest input
      * @param request
      * @return javax.servlet.http.HttpSession
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:52
+     * Date:: 2021/3/19 10:52
      * @version: 1.0
      */
     public static HttpSession getSession(HttpServletRequest request){
@@ -78,11 +84,11 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getSession
+     * Description:: getSession
      * get threadLocal request's session
      * @return javax.servlet.http.HttpSession
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:55
+     * Date:: 2021/3/19 10:55
      * @version: 1.0
      */
     public static HttpSession getSession(){
@@ -91,11 +97,11 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getIpAddress
+     * Description:: getIpAddress
      * get the threadLocal request's real ip address
      * @return java.lang.String
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:56
+     * Date:: 2021/3/19 10:56
      * @version: 1.0
      */
     public static String getIpAddress(){
@@ -104,11 +110,11 @@ public class HttpUtil {
     }
 
     /**
-     * @description: getIpAddress
+     * Description:: getIpAddress
      * get the real ip address in the request
      * @return java.lang.String
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/19 10:55
+     * Date:: 2021/3/19 10:55
      * @version: 1.0
      */
     public static String getIpAddress(HttpServletRequest request){
@@ -133,6 +139,12 @@ public class HttpUtil {
             }
             return ip;
         }
+   }
+
+   public static String layContentDisposition(String fileName){
+       StringBuilder dispositionStr = new StringBuilder();
+       dispositionStr.append("attachment; filename=").append("\"").append(fileName).append("\"");
+       return dispositionStr.toString();
    }
 
 }

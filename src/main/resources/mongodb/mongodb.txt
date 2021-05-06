@@ -1,0 +1,16 @@
+#!/bin/zsh
+mongo
+use admin
+db.createUser({
+  user:"root",
+  pwd:"Maple@feng7",
+  roles:["root"]
+})
+
+use mongoTempFile
+db.createCollection("fs.files")
+db.fs.files.createIndex()
+db.createCollection(fs.chunks)
+db.fs.chunks.createIndex()
+
+

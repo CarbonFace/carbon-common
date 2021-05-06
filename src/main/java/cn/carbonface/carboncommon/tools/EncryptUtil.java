@@ -5,19 +5,19 @@ import org.springframework.util.DigestUtils;
 import java.util.Random;
 
 /**
- * @Classname EncryptUtil
- * @Description EncryptUtil for encrypt strings
- * @Author CarbonFace <553127022@qq.com>
- * @Date 2021/3/19 12:02
- * @Version V1.0
+ * Classname: EncryptUtil
+ * Description: EncryptUtil for encrypt strings
+ * @author CarbonFace <553127022@qq.com>
+ * Date: 2021/3/19 12:02
+ * @version V1.0
  */
 public class EncryptUtil {
     /**
-     * @description: md5Encrypt
+     * Description:: md5Encrypt
      * encoding strings without salt input
      * @return java.lang.String
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/25 16:16
+     * Date:: 2021/3/25 16:16
      * @version: 1.0
      */
     public static String md5Encrypt(String encryptString){
@@ -26,11 +26,11 @@ public class EncryptUtil {
     }
 
     /**
-     * @description: laySalt
+     * Description:: laySalt
      * generate salt with strings input which is randomly cut by the length of encryptString
      * @return java.lang.String
      * @author: CarbonFace  <553127022@qq.com>
-     * @date: 2021/3/25 16:15
+     * Date:: 2021/3/25 16:15
      * @version: 1.0
      */
     public static String laySalt(String saltString){
@@ -45,13 +45,13 @@ public class EncryptUtil {
     }
 
     /**
-     * @description: md5EncryptWithSalt
+     * Description:: md5EncryptWithSalt
      * encode strings with salt input
      * @param encryptString
      * @param salt
      * @return java.lang.String
      * @author: CarbonFace <553127022@qq.com>
-     * @date: 2021/3/16 13:56
+     * Date:: 2021/3/16 13:56
      * @version: 1.0
      */
     public static String md5EncryptWithSalt(String encryptString, String salt){

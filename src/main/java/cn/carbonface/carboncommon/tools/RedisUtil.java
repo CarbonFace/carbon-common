@@ -11,11 +11,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Classname RedisUtil
- * @Description only string type redis
- * @Author CarbonFace <553127022@qq.com>
- * @Date 2021/3/16 15:35
- * @Version V1.0
+ * Classname: RedisUtil
+ * Description: only string type redis
+ * @author CarbonFace <553127022@qq.com>
+ * Date: 2021/3/16 15:35
+ * @version V1.0
  */
 @Component
 public class RedisUtil {

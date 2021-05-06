@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @Classname CarbonCommonApplication
- * @Description common module used in the CarbonFace Cloud
- * @Author CarbonFace <553127022@qq.com>
- * @Date 2021/3/26 11:13
- * @Version V1.0
+ * Classname: CarbonCommonApplication
+ * Description: common module used in the CarbonFace Cloud
+ * @author CarbonFace <553127022@qq.com>
+ * Date: 2021/3/26 11:13
+ * @version V1.0
  */
 @SpringBootApplication
 public class CarbonCommonApplication {

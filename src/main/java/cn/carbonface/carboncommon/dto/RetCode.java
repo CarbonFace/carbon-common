@@ -38,6 +38,7 @@ public enum RetCode {
     NO_PERMISSION(3001, "没有权限"),
     FEIGN_ONLY(3002, "内部接口，无法访问！"),
 
+    FILE_NOT_FIND(3030,"无法找到文件"),
     INTERNAL_ERROR(5000,"服务器内部错误");
 
 
