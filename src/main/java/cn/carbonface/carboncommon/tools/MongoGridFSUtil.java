@@ -90,7 +90,7 @@ public class MongoGridFSUtil {
         mongoTemplate = new MongoTemplate(mongoDbFactory,mongoConverter);
     }
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "* * 2 * * ?")
     @Transactional
     public void clearExpiration(){
         log.info("clearExpiration started");
