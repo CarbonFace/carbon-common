@@ -1,8 +1,5 @@
 package cn.carbonface.carboncommon.dto.mongodb;
 
-import org.bson.BSON;
-import org.bson.BsonBinary;
-import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,8 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * classname MongoTempFileBlock
- * Description TODO
+ * classname MongoFile
+ * Description: MongoFile class for mongo file store function
  *
  * @author carbonface <553127022@qq.com>
  * Date 2021/4/26 14:50
@@ -29,7 +26,7 @@ public class MongoFile implements Serializable {
     public static final String  MONGO_ID            = "_id";
     public static final String EXPIRATION = "expiration";
 
-    public static final long    FILE_EXPIRE_TIME    = 120 * 1000;
+    public static final long    FILE_EXPIRE_TIME    = 1800 * 1000;
 
     public static final long    BIG_FILE_SIZE       = 15 * 1024 * 1024;         //15MB
 
@@ -49,6 +46,9 @@ public class MongoFile implements Serializable {
     private Boolean bigFile;
 
     private Binary binary;
+
+    public MongoFile() {
+    }
 
     public MongoFile(MultipartFile file) throws IOException {
         this(file,false);
