@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class HttpUtil {
 
-    public static final String DEFAULT_CONTENT_TYPE = "";
+    public static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
     public static final String CONTENT_TYPE         = "Content-Type";
     public static final String CONTENT_DISPOSITION  = "Content-Disposition";
 

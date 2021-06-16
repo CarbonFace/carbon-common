@@ -11,10 +11,12 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,6 +24,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -154,8 +157,22 @@ public class MongoGridFSUtil {
 //        }
     }
 
+    public static void solidFileById(String fileId) throws CarbonException {
+        try {
+            MongoFile mongoFile = getMongoFile(fileId);
+            Query query = Query.query(Criteria.where(MongoFile.MONGO_ID).is(mongoFile.getFileId())
+                    .andOperator(Criteria.where(MongoFile.EXPIRATION).exists(true)));
+            Update update = new Update();
+            update.set(MongoFile.EXPIRATION,null);
+            UpdateResult updateResult = mongoTemplate.updateFirst(query, update, MongoFile.class);
+//            if (updateResult.getModifiedCount() != 1) {
+//                throw new CarbonException(RetCode.INTERNAL_ERROR);
+//            }
+        } catch (CarbonException e) {
+            throw new CarbonException(RetCode.INTERNAL_ERROR);
+        }
+    }
     public static MongoFile getMongoFile(String fileId) throws CarbonException {
-
         MongoFile mongoFile = mongoTemplate.findOne(Query.query(Criteria.where(MongoFile.MONGO_ID).is(new ObjectId(fileId))),MongoFile.class);
         if (mongoFile == null){
             throw new CarbonException(RetCode.FILE_NOT_FIND);

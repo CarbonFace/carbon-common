@@ -23,6 +23,8 @@ import java.util.List;
 @Slf4j
 public class MongoUtil {
 
+    public static final String MONGO_ID = "_id";
+
     private static MongoTemplate mongoTemplate;
 
     public MongoUtil(MongoTemplate mongoTemplate) {
@@ -119,6 +121,18 @@ public class MongoUtil {
             update.set(updateKeys[i], updateValues[i]);
         }
         mongoTemplate.updateFirst(query, update, collectionName);
+    }
+
+    public static void updateFirst(String accordingKey, Object accordingValue, String[] updateKeys, Object[] updateValues,
+                                   Class<?> entityClass) {
+
+        Criteria criteria = Criteria.where(accordingKey).is(accordingValue);
+        Query query = Query.query(criteria);
+        Update update = new Update();
+        for (int i = 0; i < updateKeys.length; i++) {
+            update.set(updateKeys[i], updateValues[i]);
+        }
+        mongoTemplate.updateFirst(query, update, entityClass);
     }
 
     /**
